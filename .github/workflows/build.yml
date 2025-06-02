@@ -68,4 +68,12 @@ jobs:
             docker pull ghcr.io/francknana/sm-backend:latest
             docker stop sm-backend || true
             docker rm sm-backend || true
-            docker run -d --name sm-backend -p 3000:3000 ghcr.io/francknana/sm-backend:latest
+            docker run -d --name sm-backend \
+            -e SPRING_PROFILES_ACTIVE=prod \
+            -e SERVER_PORT=${{ secrets.SERVER_PORT }} \
+            -e POSTGRES_ADDR=${{ secrets.POSTGRES_ADDR }} \
+            -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
+            -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+            -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} \
+            ghcr.io/francknana/sm-backend:latest
+
