@@ -50,19 +50,20 @@ jobs:
           push: true
           tags: ghcr.io/francknana/sm-backend:latest
       
-      - name: Setup SSH
+      - name: Add EC2 host to known_hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Connect and deploy to EC2
-        run: |
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
-            docker pull ghcr.io/francknana/sm-backend:latest
+      - name: Connect to EC2 and deploy container
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} -p ${{ secrets.GHCR_TOKEN }}
+            docker pull ghcr.io/${{ secrets.GHCR_USERNAME }}/sm-backend:latest
             docker stop sm-backend || true
             docker rm sm-backend || true
-            docker run -d -p 80:3000 --name sm-backend ghcr.io/francknana/sm-backend:latest
-          EOF
+            docker run -d --name sm-backend -p 3000:3000 ghcr.io/${{ secrets.GHCR_USERNAME }}/sm-backend:latest
