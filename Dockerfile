@@ -5,7 +5,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN chmod +x mvnw && ./mvnw clean verify -DskipTests
+RUN chmod +x mvn && ./mvn clean verify -DskipTests
 
 FROM eclipse-temurin:21-jre
 
