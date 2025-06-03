@@ -10,7 +10,7 @@ public class Hellowork {
 
     @GetMapping("/hello")
     public String hellowork(){
-        return "<h1>Hello World</h1>";
+        return "<h1>Hello World Francky la joie</h1>";
     }
 }
 
