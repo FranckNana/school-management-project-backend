@@ -10,6 +10,7 @@ public class Hellowork {
 
     @GetMapping("/hello")
     public String hellowork(){
+        System.out.println("Controller hello method called");
         return "<h1>Hello World Francky la joie</h1>";
     }
 }

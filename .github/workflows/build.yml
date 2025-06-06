@@ -23,6 +23,11 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
+      
+      - name: Recreate Firebase service account key file
+        run: |
+          mkdir -p src/main/resources/firebase
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" > src/main/resources/firebase/serviceAccountKey.json
 
       - name: Make mvnw executable
         run: chmod +x ./mvnw
