@@ -81,7 +81,6 @@ jobs:
             docker stop sm-backend || true
             docker rm sm-backend || true
             docker run -d --name sm-backend \
-              -v /home/ubuntu/serviceAccountKey.json:/app/src/main/resources/firebase/serviceAccountKey.json \
               -e SPRING_PROFILES_ACTIVE=prod \
               -e SERVER_PORT=${{ secrets.SERVER_PORT }} \
               -e POSTGRES_ADDR=${{ secrets.POSTGRES_ADDR }} \
