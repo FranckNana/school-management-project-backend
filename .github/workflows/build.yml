@@ -89,11 +89,14 @@ jobs:
               -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} \
               ghcr.io/francknana/sm-backend:latest
       
-      - name: Wait for app to start and test endpoint
-        uses: jakejarvis/wait-on-check-action@v1
+      - name: Wait for /hello to respond
+        uses: emilioschepis/wait-for-endpoint@v1.0.3
         with:
           url: http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
-          timeout: 60
+          method: GET
+          expected-status: 200
+          timeout: 60000
+          interval: 2000
 
       - name: Test app endpoint
         run: curl -f http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
