@@ -90,7 +90,7 @@ jobs:
               ghcr.io/francknana/sm-backend:latest
       
       - name: Wait for app to start and test endpoint
-        uses: jakejarvis/wait-on-check-action@v2
+        uses: jakejarvis/wait-on-check-action@v1
         with:
           url: http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
           timeout: 60
