@@ -22,8 +22,8 @@ public class FirebaseConfig {
 
     @PostConstruct
     public void init() throws IOException {
-        //FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath);
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream(firebaseConfigPath);
+        FileInputStream serviceAccount = new FileInputStream(firebaseConfigPath);
+        //InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream(firebaseConfigPath);
         if (serviceAccount == null) {
             throw new FileNotFoundException("Firebase service account file not found in classpath");
         }

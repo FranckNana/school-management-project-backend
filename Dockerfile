@@ -12,6 +12,8 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
 
+COPY src/main/resources/firebase/serviceAccountKey.json /app/firebase/serviceAccountKey.json
+
 ENV SPRING_PROFILES_ACTIVE=prod
 
 EXPOSE 3000
