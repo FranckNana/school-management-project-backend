@@ -89,14 +89,14 @@ jobs:
               -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} \
               ghcr.io/francknana/sm-backend:latest
       
-      - name: Wait for /hello to respond
-        uses: emilioschepis/wait-for-endpoint@v1.0.3
-        with:
-          url: http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
-          method: GET
-          expected-status: 200
-          timeout: 60000
-          interval: 2000
+            echo "⏳ Attente du démarrage de l'application..."
+            for i in {1..30}; do
+              if curl -s http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello | grep -q "Hello World"; then
+                echo "✅ L'API est accessible"
+                break
+              fi
+              sleep 2
+            done
 
-      - name: Test app endpoint
-        run: curl -f http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
+            echo "🔍 Vérification finale..."
+            curl -f http://localhost:${{ secrets.SERVER_PORT }}/api/v1/hello
