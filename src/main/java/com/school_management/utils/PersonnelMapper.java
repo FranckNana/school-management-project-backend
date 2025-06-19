@@ -2,9 +2,8 @@ package com.school_management.utils;
 
 import com.school_management.models.dto.PersonnelDTO;
 import com.school_management.models.entities.PersonnelEntity;
-import org.springframework.stereotype.Component;
 
-public class PersonnelUtil {
+public class PersonnelMapper {
 
     public static PersonnelDTO toDTO(PersonnelEntity entity) {
         if (entity == null) return null;
@@ -32,7 +31,8 @@ public class PersonnelUtil {
                 dto.getPrenom(),
                 dto.getDateNaissance(),
                 dto.getTelephone(),
-                dto.getEmail()
+                dto.getEmail(),
+                dto.getAdresse()
         );
 
         entity.setId(dto.getId());

@@ -14,6 +14,7 @@ public class PersonnelDTO {
     private LocalDate dateNaissance;
     private String telephone;
     private String email;
+    private String adresse;
 
     private Poste poste;
     private LocalDate dateEmbauche;
@@ -21,13 +22,14 @@ public class PersonnelDTO {
     private List<Matiere> matieres;
 
     public PersonnelDTO(Long id, String nom, String prenom, LocalDate dateNaissance, String telephone, String email,
-                        Poste poste, LocalDate dateEmbauche, Double salaire, List<Matiere> matieres) {
+                        String adresse, Poste poste, LocalDate dateEmbauche, Double salaire, List<Matiere> matieres) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
         this.telephone = telephone;
         this.email = email;
+        this.adresse = adresse;
         this.poste = poste;
         this.dateEmbauche = dateEmbauche;
         this.salaire = salaire;
@@ -83,6 +85,14 @@ public class PersonnelDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public Poste getPoste() {

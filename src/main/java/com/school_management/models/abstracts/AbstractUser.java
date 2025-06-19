@@ -12,13 +12,15 @@ public abstract class AbstractUser {
     protected LocalDate dateNaissance;
     protected String telephone;
     protected String email;
+    private String adresse;
 
-    public AbstractUser(String nom, String prenom, LocalDate dateNaissance, String telephone, String email) {
+    public AbstractUser(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
         this.telephone = telephone;
         this.email = email;
+        this.adresse = adresse;
     }
 
     public AbstractUser() {
@@ -62,5 +64,13 @@ public abstract class AbstractUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 }

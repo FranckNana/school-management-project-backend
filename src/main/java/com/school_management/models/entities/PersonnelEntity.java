@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name = "personnel")
 public class PersonnelEntity extends AbstractUser implements Serializable{
 
     @Id
@@ -28,9 +29,9 @@ public class PersonnelEntity extends AbstractUser implements Serializable{
     @Column(name = "matiere")
     private List<Matiere> matieres;
 
-    public PersonnelEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, Long id,
-                           Poste poste, LocalDate dateEmbauche, Double salaire, List<Matiere> matieres) {
-        super(nom, prenom, dateNaissance, telephone, email);
+    public PersonnelEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email,
+                           String adresse, Long id, Poste poste, LocalDate dateEmbauche, Double salaire, List<Matiere> matieres) {
+        super(nom, prenom, dateNaissance, telephone, email, adresse);
         this.id = id;
         this.poste = poste;
         this.dateEmbauche = dateEmbauche;
@@ -38,8 +39,8 @@ public class PersonnelEntity extends AbstractUser implements Serializable{
         this.matieres = matieres;
     }
 
-    public PersonnelEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email) {
-        super(nom, prenom, dateNaissance, telephone, email);
+    public PersonnelEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse) {
+        super(nom, prenom, dateNaissance, telephone, email, adresse);
     }
 
     public PersonnelEntity() {

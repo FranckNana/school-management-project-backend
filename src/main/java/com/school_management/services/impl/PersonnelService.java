@@ -7,7 +7,7 @@ import com.school_management.models.entities.PersonnelEntity;
 import com.school_management.repository.PersonnelRepository;
 import com.school_management.services.IPersonnelService;
 import com.school_management.utils.Constants;
-import com.school_management.utils.PersonnelUtil;
+import com.school_management.utils.PersonnelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class PersonnelService implements IPersonnelService {
     @Override
     public List<PersonnelDTO> getAll() {
         List<PersonnelEntity> all = this.personnelRepository.findAll();
-        return all.stream().map(PersonnelUtil::toDTO)
+        return all.stream().map(PersonnelMapper::toDTO)
                     .collect(Collectors.toList());
     }
 
@@ -47,7 +47,7 @@ public class PersonnelService implements IPersonnelService {
             throw new NotFoundException(Constants.NOT_FOUND_EXCEPTION);
         }
 
-        return PersonnelUtil.toDTO(personnel);
+        return PersonnelMapper.toDTO(personnel);
     }
 
     @Override
@@ -57,9 +57,9 @@ public class PersonnelService implements IPersonnelService {
             throw new BadRequestException(Constants.EXCEPTION_PARAMS_REQUIRED);
         }
 
-        PersonnelEntity savePersonnel = this.personnelRepository.save(PersonnelUtil.toEntity(personneldto));
+        PersonnelEntity savePersonnel = this.personnelRepository.save(PersonnelMapper.toEntity(personneldto));
 
-        return PersonnelUtil.toDTO(savePersonnel);
+        return PersonnelMapper.toDTO(savePersonnel);
     }
 
     @Override
@@ -80,8 +80,8 @@ public class PersonnelService implements IPersonnelService {
         if (dto.getSalaire() != null) existing.setSalaire(dto.getSalaire());
         if (dto.getMatieres() != null) existing.setMatieres(dto.getMatieres());
 
-        PersonnelEntity savePersonnel = this.personnelRepository.save(PersonnelUtil.toEntity(existing));
-        return PersonnelUtil.toDTO(savePersonnel);
+        PersonnelEntity savePersonnel = this.personnelRepository.save(PersonnelMapper.toEntity(existing));
+        return PersonnelMapper.toDTO(savePersonnel);
     }
 
     @Override
