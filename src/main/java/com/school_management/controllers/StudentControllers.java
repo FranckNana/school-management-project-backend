@@ -1,6 +1,7 @@
 package com.school_management.controllers;
 
 import com.school_management.exceptions.ControllerExceptionHandler;
+import com.school_management.models.dto.PaiementDTO;
 import com.school_management.models.dto.PersonnelDTO;
 import com.school_management.models.dto.StudentDTO;
 import com.school_management.services.IPersonnelService;
@@ -39,7 +40,6 @@ public class StudentControllers extends ControllerExceptionHandler {
 
     @PatchMapping("/students")
     public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentdto) {
-        System.out.println("*********"+studentdto);
         StudentDTO updatedStudent = this.studentService.update(studentdto);
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }
@@ -49,4 +49,18 @@ public class StudentControllers extends ControllerExceptionHandler {
         StudentDTO student = this.studentService.getById(id);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
+
+    @PatchMapping("/students/paiements")
+    public ResponseEntity<StudentDTO> updateStudentPaiment(@RequestBody PaiementDTO paiement) {
+        System.out.println("paiement ====> "+paiement);
+        StudentDTO studentDTO = this.studentService.updatePaiement(paiement);
+        return new ResponseEntity<>(studentDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/students/paiements")
+    public ResponseEntity<Void> deleteStudentPaiement(@RequestBody PaiementDTO paiement) {
+        this.studentService.deletePaiement(paiement);
+        return ResponseEntity.noContent().build();
+    }
+
 }

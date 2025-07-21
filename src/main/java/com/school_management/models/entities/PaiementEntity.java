@@ -18,15 +18,15 @@ public class PaiementEntity implements Serializable {
     private String motif;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private StudentEntity student;
+    @JoinColumn(name = "id_eleve", nullable = false)
+    private StudentEntity eleve;
 
-    public PaiementEntity(Long id, LocalDate date, double montant, String motif, StudentEntity student) {
+    public PaiementEntity(Long id, LocalDate date, double montant, String motif, StudentEntity eleve) {
         this.id = id;
         this.date = date;
         this.montant = montant;
         this.motif = motif;
-        this.student = student;
+        this.eleve = eleve;
     }
 
     public PaiementEntity() {
@@ -64,11 +64,11 @@ public class PaiementEntity implements Serializable {
         this.motif = motif;
     }
 
-    public StudentEntity getStudent() {
-        return student;
+    public StudentEntity getEleve() {
+        return eleve;
     }
 
-    public void setStudent(StudentEntity student) {
-        this.student = student;
+    public void setEleve(StudentEntity eleve) {
+        this.eleve = eleve;
     }
 }

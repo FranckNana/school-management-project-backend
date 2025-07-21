@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,13 +23,13 @@ public class StudentEntity extends AbstractUser implements Serializable {
     private String telephoneParent;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NoteEntity> notes;
+    private List<NoteEntity> notes = new ArrayList<>();;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PresenceEntity> presences;
+    private List<PresenceEntity> presences = new ArrayList<>();;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PaiementEntity> paiements;
+    @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PaiementEntity> paiements = new ArrayList<>();
 
 
     public StudentEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse,

@@ -7,16 +7,18 @@ public class NoteDTO {
     private double note;
     private double coefficient;
     private int trimestre;
+    private String appreciation;
 
     public NoteDTO() {
     }
 
-    public NoteDTO(Long id, String matiere, double note, double coefficient, int trimestre) {
+    public NoteDTO(Long id, String matiere, double note, double coefficient, int trimestre, String appreciation) {
         this.id = id;
         this.matiere = matiere;
         this.note = note;
         this.coefficient = coefficient;
         this.trimestre = trimestre;
+        this.appreciation = appreciation;
     }
 
     public Long getId() {
@@ -57,5 +59,13 @@ public class NoteDTO {
 
     public void setTrimestre(int trimestre) {
         this.trimestre = trimestre;
+    }
+
+    public String getAppreciation() {
+        return appreciation;
+    }
+
+    public void setAppreciation(String appreciation) {
+        this.appreciation = appreciation;
     }
 }

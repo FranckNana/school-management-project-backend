@@ -1,6 +1,7 @@
 package com.school_management.models.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDTO {
@@ -17,9 +18,9 @@ public class StudentDTO {
     private String nomParent;
     private String telephoneParent;
 
-    private List<NoteDTO> notes;
-    private List<PresenceDTO> presences;
-    private List<PaiementDTO> paiements;
+    private List<NoteDTO> notes = new ArrayList<>();;
+    private List<PresenceDTO> presences = new ArrayList<>();;
+    private List<PaiementDTO> paiements = new ArrayList<>();;
 
     public StudentDTO(Long id, String numeroMatricule, String nom, String prenom, LocalDate dateNaissance,
                       String telephone, String email, String adresse, String classe, String nomParent,
@@ -153,5 +154,25 @@ public class StudentDTO {
 
     public void setPaiements(List<PaiementDTO> paiements) {
         this.paiements = paiements;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentDTO{" +
+                "id=" + id +
+                ", numeroMatricule='" + numeroMatricule + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", dateNaissance=" + dateNaissance +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", classe='" + classe + '\'' +
+                ", nomParent='" + nomParent + '\'' +
+                ", telephoneParent='" + telephoneParent + '\'' +
+                ", notes=" + notes +
+                ", presences=" + presences +
+                ", paiements=" + paiements +
+                '}';
     }
 }

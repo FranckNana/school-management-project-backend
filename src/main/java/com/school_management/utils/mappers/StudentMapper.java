@@ -1,4 +1,4 @@
-package com.school_management.utils;
+package com.school_management.utils.mappers;
 
 import com.school_management.models.dto.StudentDTO;
 import com.school_management.models.entities.StudentEntity;
@@ -62,10 +62,10 @@ public class StudentMapper {
             entity.setPresences(dto.getPresences().stream().map(PresenceMapper::toEntity).collect(Collectors.toList()));
             entity.getPresences().forEach(p -> p.setStudent(entity));
         }
-        if(dto.getPaiements() != null) {
+        /*if(dto.getPaiements() != null) {
             entity.setPaiements(dto.getPaiements().stream().map(PaiementMapper::toEntity).collect(Collectors.toList()));
-            entity.getPaiements().forEach(p -> p.setStudent(entity));
-        }
+            //entity.getPaiements().forEach(p -> p.setStudent(entity));
+        }*/
 
         return entity;
     }

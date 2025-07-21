@@ -2,13 +2,12 @@ package com.school_management.models.enums;
 
 public enum Matiere {
     MATHEMATIQUES,
-    PHYSIQUE,
-    CHIMIE,
+    PHYSIQUE_CHIMIE,
     SVT,
-    HISTOIRE,
-    GEOGRAPHIE,
+    HISTOIRE_GEOGRAPHIE,
     FRANCAIS,
     ANGLAIS,
     PHILOSOPHIE,
-    EPS
+    EPS,
+    AUTRE
 }

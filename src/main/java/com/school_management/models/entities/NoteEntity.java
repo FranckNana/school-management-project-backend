@@ -21,13 +21,17 @@ public class NoteEntity implements Serializable {
     @JoinColumn(name = "student_id")
     private StudentEntity student;
 
-    public NoteEntity(Long id, String matiere, double note, double coefficient, int trimestre, StudentEntity student) {
+    private String appreciation;
+
+    public NoteEntity(Long id, String matiere, double note, double coefficient, int trimestre, StudentEntity student,
+                      String appreciation) {
         this.id = id;
         this.matiere = matiere;
         this.note = note;
         this.coefficient = coefficient;
         this.trimestre = trimestre;
         this.student = student;
+        this.appreciation = appreciation;
     }
 
     public NoteEntity() {
@@ -79,5 +83,13 @@ public class NoteEntity implements Serializable {
 
     public void setStudent(StudentEntity student) {
         this.student = student;
+    }
+
+    public String getAppreciation() {
+        return appreciation;
+    }
+
+    public void setAppreciation(String appreciation) {
+        this.appreciation = appreciation;
     }
 }

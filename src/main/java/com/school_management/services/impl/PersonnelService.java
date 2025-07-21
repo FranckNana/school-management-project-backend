@@ -7,7 +7,7 @@ import com.school_management.models.entities.PersonnelEntity;
 import com.school_management.repository.PersonnelRepository;
 import com.school_management.services.IPersonnelService;
 import com.school_management.utils.Constants;
-import com.school_management.utils.PersonnelMapper;
+import com.school_management.utils.mappers.PersonnelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

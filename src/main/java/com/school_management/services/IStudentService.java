@@ -1,5 +1,6 @@
 package com.school_management.services;
 
+import com.school_management.models.dto.PaiementDTO;
 import com.school_management.models.dto.PersonnelDTO;
 import com.school_management.models.dto.StudentDTO;
 
@@ -12,4 +13,6 @@ public interface IStudentService {
     public StudentDTO getById(Long id);
     public List<StudentDTO> getAll();
     public void delete(Long id);
+    public void deletePaiement(PaiementDTO paiementDTO);
+    public StudentDTO updatePaiement(PaiementDTO paiementDTO);
 }

@@ -1,4 +1,4 @@
-package com.school_management.utils;
+package com.school_management.utils.mappers;
 
 import com.school_management.models.dto.PersonnelDTO;
 import com.school_management.models.entities.PersonnelEntity;

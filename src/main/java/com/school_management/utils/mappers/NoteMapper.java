@@ -1,4 +1,4 @@
-package com.school_management.utils;
+package com.school_management.utils.mappers;
 
 import com.school_management.models.dto.NoteDTO;
 import com.school_management.models.entities.NoteEntity;
@@ -11,7 +11,8 @@ public class NoteMapper {
                 entity.getMatiere(),
                 entity.getNote(),
                 entity.getCoefficient(),
-                entity.getTrimestre()
+                entity.getTrimestre(),
+                entity.getAppreciation()
         );
     }
 
