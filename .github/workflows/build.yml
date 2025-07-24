@@ -86,6 +86,7 @@ jobs:
               -e POSTGRES_ADDR=${{ secrets.POSTGRES_ADDR }} \
               -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
               -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+              -e CORS_ADDR=${{ secrets.CORS_ADDR }} \
               -p ${{ secrets.SERVER_PORT }}:${{ secrets.SERVER_PORT }} \
               ghcr.io/francknana/sm-backend:latest
       
