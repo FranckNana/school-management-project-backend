@@ -59,4 +59,41 @@ public class PaimentControllers extends ControllerExceptionHandler {
         this.paiementService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/paiements/solde")
+    public ResponseEntity<Double> getSolde() {
+        double solde = this.paiementService.getSolde();
+        return new ResponseEntity<>(solde, HttpStatus.OK);
+    }
+
+    @GetMapping("/paiements/soldebefore")
+    public ResponseEntity<Double> getSoldeBefore() {
+        double sold = this.paiementService.getSoldeBefore();
+        return new ResponseEntity<>(sold, HttpStatus.OK);
+    }
+
+    @GetMapping("/paiements/depenses")
+    public ResponseEntity<Double> getDepenses() {
+        double depenses = this.paiementService.getDepenses();
+        return new ResponseEntity<>(depenses, HttpStatus.OK);
+    }
+
+    @GetMapping("/paiements/alldepenses")
+    public ResponseEntity<Double> getAllDepenses() {
+        double depenses = this.paiementService.getAllDepense();
+        return new ResponseEntity<>(depenses, HttpStatus.OK);
+    }
+
+    @GetMapping("/paiements/recette")
+    public ResponseEntity<Double> getRecette() {
+        double recette = this.paiementService.getRecettes();
+        return new ResponseEntity<>(recette, HttpStatus.OK);
+    }
+
+    @GetMapping("/paiements/allrecette")
+    public ResponseEntity<Double> getAllRecette() {
+        double allRecette = this.paiementService.getAllRecettes();
+        return new ResponseEntity<>(allRecette, HttpStatus.OK);
+    }
+
 }

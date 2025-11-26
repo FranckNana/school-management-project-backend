@@ -33,6 +33,9 @@ public class StudentMapper {
             dto.setPaiements(entity.getPaiements().stream().map(PaiementMapper::toDto).collect(Collectors.toList()));
         }
 
+        dto.setPrixScholarite(entity.getPrixScholarite());
+        dto.setResteApayer(entity.getResteApayer());
+
         return dto;
     }
 
@@ -62,11 +65,9 @@ public class StudentMapper {
             entity.setPresences(dto.getPresences().stream().map(PresenceMapper::toEntity).collect(Collectors.toList()));
             entity.getPresences().forEach(p -> p.setStudent(entity));
         }
-        /*if(dto.getPaiements() != null) {
-            entity.setPaiements(dto.getPaiements().stream().map(PaiementMapper::toEntity).collect(Collectors.toList()));
-            //entity.getPaiements().forEach(p -> p.setStudent(entity));
-        }*/
 
+        entity.setPrixScholarite(dto.getPrixScholarite());
+        entity.setResteApayer(dto.getResteApayer());
         return entity;
     }
 }

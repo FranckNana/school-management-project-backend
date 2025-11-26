@@ -25,10 +25,8 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -113,6 +111,8 @@ public class BulletinService implements IBulletinService {
 
         BulletinEntity bulletin = this.bulletinRepository.save(bulletinEntity);
 
+        calculDeRang(bulletinDTO);
+
         return BulletinMapper.toDto(bulletin);
     }
 
@@ -150,7 +150,7 @@ public class BulletinService implements IBulletinService {
             entity.setMoyenneGenerale(bulletinDTO.getMoyenneGenerale());
         }
 
-        if (bulletinDTO.getRang() != null) {
+        if (bulletinDTO.getRang()!=0) {
             entity.setRang(bulletinDTO.getRang());
         }
 
@@ -197,6 +197,9 @@ public class BulletinService implements IBulletinService {
         bulletinEntity.setNotes(updatedNotes);
 
         BulletinEntity updated = this.bulletinRepository.save(bulletinEntity);
+
+        calculDeRang(bulletinDTO);
+
         return BulletinMapper.toDto(updated);
 
     }
@@ -210,6 +213,7 @@ public class BulletinService implements IBulletinService {
         this.bulletinRepository.deleteById(idBulletin);
     }
 
+    @Override
     public byte[] generatePDF(Long bulletinId) {
         BulletinEntity bulletin = bulletinRepository.findById(bulletinId)
                 .orElseThrow(() -> new NotFoundException("Bulletin non trouvé"));
@@ -270,5 +274,22 @@ public class BulletinService implements IBulletinService {
         }
 
         return out.toByteArray();
+    }
+
+    private void calculDeRang(BulletinDTO bulletinDTO) {
+        List<BulletinEntity> bulletins = bulletinRepository.findAllByTrimestreOrderByMoyenneGeneraleDesc(bulletinDTO.getTrimestre());
+
+        double prevMoyenne = -1;
+        int rang = 0;
+
+        for (BulletinEntity b : bulletins) {
+            if (b.getMoyenneGenerale() != prevMoyenne) {
+                rang++;
+                prevMoyenne = b.getMoyenneGenerale();
+            }
+            b.setRang(rang);
+        }
+
+        this.bulletinRepository.saveAll(bulletins);
     }
 }

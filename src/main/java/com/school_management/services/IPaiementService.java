@@ -13,4 +13,10 @@ public interface IPaiementService {
     public SalaryDTO getSalaryByID(Long id );
     public void delete(Long id);
     public SalaryDTO updateSalary(SalaryDTO salaryDTO);
+    public double getSolde();
+    public double getRecettes();
+    public double getAllRecettes();
+    public double getDepenses();
+    public double getAllDepense();
+    public double getSoldeBefore();
 }

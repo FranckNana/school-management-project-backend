@@ -34,7 +34,7 @@ public class BulletinEntity implements Serializable {
     @Column(name = "moyenne_generale")
     private Double moyenneGenerale;
 
-    private Integer rang;
+    private int rang;
 
     private String appreciation;
 
@@ -42,7 +42,7 @@ public class BulletinEntity implements Serializable {
     private LocalDate dateGeneration;
 
     public BulletinEntity(Long id, Long eleveId, String nomEleve, String classe, Integer trimestre, String annee,
-                          List<NoteEntity> notes, Double moyenneGenerale, Integer rang, String appreciation,
+                          List<NoteEntity> notes, Double moyenneGenerale, int rang, String appreciation,
                           LocalDate dateGeneration) {
         this.id = id;
         this.eleveId = eleveId;
@@ -124,11 +124,11 @@ public class BulletinEntity implements Serializable {
         this.moyenneGenerale = moyenneGenerale;
     }
 
-    public Integer getRang() {
+    public int getRang() {
         return rang;
     }
 
-    public void setRang(Integer rang) {
+    public void setRang(int rang) {
         this.rang = rang;
     }
 

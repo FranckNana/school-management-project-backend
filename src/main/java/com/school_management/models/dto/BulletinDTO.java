@@ -12,12 +12,12 @@ public class BulletinDTO {
     private String annee;
     private List<NoteDTO> notes;
     private Double moyenneGenerale;
-    private Integer rang;
+    private int rang;
     private String appreciation;
     private LocalDate dateGeneration;
 
     public BulletinDTO(Long id, Long eleveId, String nomEleve, String classe, Integer trimestre, String annee,
-                       List<NoteDTO> notes, Double moyenneGenerale, Integer rang, String appreciation, LocalDate dateGeneration) {
+                       List<NoteDTO> notes, Double moyenneGenerale, int rang, String appreciation, LocalDate dateGeneration) {
         this.id = id;
         this.eleveId = eleveId;
         this.nomEleve = nomEleve;
@@ -98,11 +98,11 @@ public class BulletinDTO {
         this.moyenneGenerale = moyenneGenerale;
     }
 
-    public Integer getRang() {
+    public int getRang() {
         return rang;
     }
 
-    public void setRang(Integer rang) {
+    public void setRang(int rang) {
         this.rang = rang;
     }
 

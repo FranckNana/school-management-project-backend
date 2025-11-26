@@ -151,6 +151,8 @@ public class StudentService implements IStudentService {
         paiementRepository.deleteById(paiementDTO.getId());
 
         if (removed) {
+            double montantRestant = student.getResteApayer() + paiementDTO.getMontant();
+            student.setResteApayer(montantRestant);
             studentRepository.save(student);
         } else {
             throw new NotFoundException(Constants.NOT_FOUND_EXCEPTION);
@@ -174,6 +176,9 @@ public class StudentService implements IStudentService {
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException(Constants.NOT_FOUND_EXCEPTION));
 
+        double montantRestant = student.getResteApayer() + existingPaiement.getMontant() - paiementDTO.getMontant();
+        student.setResteApayer(montantRestant);
+
         // 3. Met à jour uniquement les champs non nuls (patch)
         if (paiementDTO.getDate() != null) {
             existingPaiement.setDate(paiementDTO.getDate());
@@ -185,13 +190,12 @@ public class StudentService implements IStudentService {
             existingPaiement.setMotif(paiementDTO.getMotif());
         }
 
+
         // 4. Sauvegarde via student (cascade)
         StudentEntity savedStudent = studentRepository.save(student);
 
         return StudentMapper.toDto(savedStudent);
     }
-
-
 
     private String generateNumeroMatricule() {
         int currentYear = LocalDate.now().getYear();

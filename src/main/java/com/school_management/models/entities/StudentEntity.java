@@ -23,7 +23,7 @@ public class StudentEntity extends AbstractUser implements Serializable {
     private String telephoneParent;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NoteEntity> notes = new ArrayList<>();;
+    private List<NoteEntity> notes = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PresenceEntity> presences = new ArrayList<>();;
@@ -31,10 +31,17 @@ public class StudentEntity extends AbstractUser implements Serializable {
     @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaiementEntity> paiements = new ArrayList<>();
 
+    @Column(nullable = true)
+    private double prixScholarite;
+
+    @Column(nullable = true)
+    private double resteApayer;
+
 
     public StudentEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse,
                          Long id, String numeroMatricule, String classe, String nomParent, String telephoneParent,
-                         List<NoteEntity> notes, List<PresenceEntity> presences, List<PaiementEntity> paiements) {
+                         List<NoteEntity> notes, List<PresenceEntity> presences, List<PaiementEntity> paiements,
+                         double prixScholarite, double resteApayer) {
         super(nom, prenom, dateNaissance, telephone, email, adresse);
         this.id = id;
         this.numeroMatricule = numeroMatricule;
@@ -44,6 +51,8 @@ public class StudentEntity extends AbstractUser implements Serializable {
         this.notes = notes;
         this.presences = presences;
         this.paiements = paiements;
+        this.prixScholarite = prixScholarite;
+        this.resteApayer = resteApayer;
     }
 
     public StudentEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse) {
@@ -116,5 +125,21 @@ public class StudentEntity extends AbstractUser implements Serializable {
 
     public void setPaiements(List<PaiementEntity> paiements) {
         this.paiements = paiements;
+    }
+
+    public double getPrixScholarite() {
+        return prixScholarite;
+    }
+
+    public void setPrixScholarite(double prixScholarite) {
+        this.prixScholarite = prixScholarite;
+    }
+
+    public double getResteApayer() {
+        return resteApayer;
+    }
+
+    public void setResteApayer(double resteApayer) {
+        this.resteApayer = resteApayer;
     }
 }

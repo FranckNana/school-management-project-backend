@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface BulletinRepository extends JpaRepository<BulletinEntity, Long> {
     Optional<List<BulletinEntity>> findByEleveId(Long eleveId);
+
+    // Récupérer tous les bulletins d’un trimestre, triés par moyenne décroissante
+    List<BulletinEntity> findAllByTrimestreOrderByMoyenneGeneraleDesc(int trimestre);
 }

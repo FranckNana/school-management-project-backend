@@ -18,13 +18,17 @@ public class StudentDTO {
     private String nomParent;
     private String telephoneParent;
 
-    private List<NoteDTO> notes = new ArrayList<>();;
-    private List<PresenceDTO> presences = new ArrayList<>();;
-    private List<PaiementDTO> paiements = new ArrayList<>();;
+    private List<NoteDTO> notes = new ArrayList<>();
+    private List<PresenceDTO> presences = new ArrayList<>();
+    private List<PaiementDTO> paiements = new ArrayList<>();
+
+    private double prixScholarite;
+    private double resteApayer;
 
     public StudentDTO(Long id, String numeroMatricule, String nom, String prenom, LocalDate dateNaissance,
                       String telephone, String email, String adresse, String classe, String nomParent,
-                      String telephoneParent, List<NoteDTO> notes, List<PresenceDTO> presences, List<PaiementDTO> paiements) {
+                      String telephoneParent, List<NoteDTO> notes, List<PresenceDTO> presences, List<PaiementDTO> paiements,
+                      double prixScholarite, double resteApayer) {
         this.id = id;
         this.numeroMatricule = numeroMatricule;
         this.nom = nom;
@@ -39,6 +43,8 @@ public class StudentDTO {
         this.notes = notes;
         this.presences = presences;
         this.paiements = paiements;
+        this.prixScholarite = prixScholarite;
+        this.resteApayer = resteApayer;
     }
 
     public StudentDTO() {
@@ -154,6 +160,22 @@ public class StudentDTO {
 
     public void setPaiements(List<PaiementDTO> paiements) {
         this.paiements = paiements;
+    }
+
+    public double getPrixScholarite() {
+        return prixScholarite;
+    }
+
+    public void setPrixScholarite(double prixScholarite) {
+        this.prixScholarite = prixScholarite;
+    }
+
+    public double getResteApayer() {
+        return resteApayer;
+    }
+
+    public void setResteApayer(double resteApayer) {
+        this.resteApayer = resteApayer;
     }
 
     @Override
