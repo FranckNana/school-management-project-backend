@@ -73,7 +73,7 @@ public class StudentService implements IStudentService {
         if (dto.getNomParent() != null) existingEntity.setNomParent(dto.getNomParent());
         if (dto.getTelephoneParent() != null) existingEntity.setTelephoneParent(dto.getTelephoneParent());
 
-        if (dto.getNotes() != null) {
+        /*if (dto.getNotes() != null) {
             existingEntity.getNotes().clear();
             dto.getNotes().forEach(noteDto -> {
                 NoteEntity noteEntity = NoteMapper.toEntity(noteDto);
@@ -98,8 +98,10 @@ public class StudentService implements IStudentService {
                 //paiement.setEleve(existingEntity);
                 existingEntity.getPaiements().add(paiement);
             });
-        }
+        }*/
 
+        if(dto.getPrixScholarite() !=0) existingEntity.setPrixScholarite(dto.getPrixScholarite());
+        if(dto.getAnneeScolaire() != null) existingEntity.setAnneeScolaire(dto.getAnneeScolaire());
 
         StudentEntity updatedStudent = this.studentRepository.save(existingEntity);
         return StudentMapper.toDto(updatedStudent);
@@ -153,7 +155,7 @@ public class StudentService implements IStudentService {
         if (removed) {
             double montantRestant = student.getResteApayer() + paiementDTO.getMontant();
             student.setResteApayer(montantRestant);
-            studentRepository.save(student);
+            this.studentRepository.save(student);
         } else {
             throw new NotFoundException(Constants.NOT_FOUND_EXCEPTION);
         }
@@ -199,7 +201,19 @@ public class StudentService implements IStudentService {
 
     private String generateNumeroMatricule() {
         int currentYear = LocalDate.now().getYear();
-        long countForYear = studentRepository.countByNumeroMatriculeStartingWith(currentYear + "-");
-        return String.format("%d-%04d", currentYear, countForYear + 1);
+        String prefix = currentYear + "-";
+
+        String lastNumeroMatricule = studentRepository.findFirstByNumeroMatriculeStartingWithOrderByNumeroMatriculeDesc(prefix)
+                .get()
+                .getNumeroMatricule();
+
+        long next = 1;
+
+        if (lastNumeroMatricule != null) {
+            String lastNumberStr = lastNumeroMatricule.substring(prefix.length());
+            next = Long.parseLong(lastNumberStr) + 1;
+        }
+
+        return String.format("%s%04d", prefix, next);
     }
 }

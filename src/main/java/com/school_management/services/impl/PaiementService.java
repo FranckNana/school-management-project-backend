@@ -56,16 +56,20 @@ public class PaiementService implements IPaiementService {
         }
 
         // Collect et sommes des paiements déjà fait pour déterminer la somme restante
-        List<PaiementEntity> paiements = studentEntity.getPaiements()
-                .stream()
-                .filter(p -> p.getDate().getYear() == LocalDate.now().getYear())
-                .toList();
+        List<PaiementEntity> paiements = studentEntity.getPaiements();
+                //.stream()
+                //.filter(p -> p.getDate().getYear() == LocalDate.now().getYear())
+               // .toList();
 
         double totalPaiements = 0;
-        if(paiements.size() > 0) {
+        if(!paiements.isEmpty()) {
             for (PaiementEntity paiementEntity : paiements) {
-                totalPaiements += paiementEntity.getMontant();
+                String currentAcademicYear = getCurrentAcademicYear(paiementEntity.getDate());
+                if(this.isAnneeScolaire(currentAcademicYear)) {
+                    totalPaiements += paiementEntity.getMontant();
+                }
             }
+            totalPaiements+=paiementDTO.getMontant();
         }else{
             totalPaiements = paiementDTO.getMontant();
         }
@@ -162,7 +166,10 @@ public class PaiementService implements IPaiementService {
         List<PaiementEntity> allPaiements = this.paiementRepository.findAll();
         double solde = 0D;
         for(PaiementEntity paiementEntity : allPaiements) {
-            solde += paiementEntity.getMontant();
+            String currentAcademicYear = this.getCurrentAcademicYear(paiementEntity.getDate());
+            if(this.isAnneeScolaire(currentAcademicYear)) {
+                solde += paiementEntity.getMontant();
+            }
         }
         return solde;
     }
@@ -172,9 +179,12 @@ public class PaiementService implements IPaiementService {
         double recette = 0.0;
         List<PaiementDTO> paiements = this.getAll();
         for(PaiementDTO paiement : paiements) {
-            if(paiement.getDate().getMonth().equals(LocalDate.now().getMonth()) &&
-                    paiement.getDate().getYear() == LocalDate.now().getYear()) {
-                recette += paiement.getMontant();
+            String currentAcademicYear = this.getCurrentAcademicYear(paiement.getDate());
+            if(this.isAnneeScolaire(currentAcademicYear)) {
+                if(paiement.getDate().getMonth().equals(LocalDate.now().getMonth()) &&
+                        paiement.getDate().getYear() == LocalDate.now().getYear()) {
+                    recette += paiement.getMontant();
+                }
             }
         }
         return recette;
@@ -185,7 +195,10 @@ public class PaiementService implements IPaiementService {
         double recette = 0.0;
         List<PaiementDTO> paiements = this.getAll();
         for(PaiementDTO paiement : paiements) {
-            recette += paiement.getMontant();
+            String currentAcademicYear = this.getCurrentAcademicYear(paiement.getDate());
+            if(this.isAnneeScolaire(currentAcademicYear)) {
+                recette += paiement.getMontant();
+            }
         }
         return recette;
     }
@@ -195,9 +208,12 @@ public class PaiementService implements IPaiementService {
         double depenses = 0D;
         List<SalaryEntity> allDepenses = this.salaryRepository.findAll();
         for(SalaryEntity depense : allDepenses) {
-            if(depense.getDate().getMonth().equals(LocalDate.now().getMonth()) &&
-                    depense.getDate().getYear() == LocalDate.now().getYear()) {
-                depenses += depense.getMontant();
+            String currentAcademicYear = this.getCurrentAcademicYear(depense.getDate());
+            if(this.isAnneeScolaire(currentAcademicYear)) {
+                if(depense.getDate().getMonth().equals(LocalDate.now().getMonth()) &&
+                        depense.getDate().getYear() == LocalDate.now().getYear()) {
+                    depenses += depense.getMontant();
+                }
             }
         }
         return depenses;
@@ -208,9 +224,43 @@ public class PaiementService implements IPaiementService {
         double depenses = 0D;
         List<SalaryEntity> allDepenses = this.salaryRepository.findAll();
         for (SalaryEntity depense : allDepenses) {
-            depenses += depense.getMontant();
+            String currentAcademicYear = this.getCurrentAcademicYear(depense.getDate());
+            if(this.isAnneeScolaire(currentAcademicYear)) {
+                depenses += depense.getMontant();
+            }
         }
         return depenses;
+    }
+
+    private boolean isAnneeScolaire(String anneeScolaire) {
+        LocalDate today = LocalDate.now();
+
+        // Sépare les deux années
+        String[] parts = anneeScolaire.split("-");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Format invalide. Utiliser 'YYYY - YYYY'.");
+        }
+
+        int startYear = Integer.parseInt(parts[0].trim());
+        int endYear = Integer.parseInt(parts[1].trim());
+
+        // Définition des bornes exactes
+        LocalDate startDate = LocalDate.of(startYear, 9, 1);  // 1er septembre startYear
+        LocalDate endDate = LocalDate.of(endYear, 8, 31);     // 31 août endYear
+
+        // Vérifie l'appartenance
+        return !today.isBefore(startDate) && !today.isAfter(endDate);
+    }
+
+    //obtenir l'année academique à partir de la date courante
+    private static String getCurrentAcademicYear(LocalDate today) {
+        int year = today.getYear();
+
+        if (today.getMonthValue() < 9) {
+            return (year - 1) + " - " + year;
+        }
+
+        return year + " - " + (year + 1);
     }
 
 

@@ -24,11 +24,12 @@ public class StudentDTO {
 
     private double prixScholarite;
     private double resteApayer;
+    private String anneeScolaire;
 
     public StudentDTO(Long id, String numeroMatricule, String nom, String prenom, LocalDate dateNaissance,
                       String telephone, String email, String adresse, String classe, String nomParent,
                       String telephoneParent, List<NoteDTO> notes, List<PresenceDTO> presences, List<PaiementDTO> paiements,
-                      double prixScholarite, double resteApayer) {
+                      double prixScholarite, double resteApayer, String anneeScolaire) {
         this.id = id;
         this.numeroMatricule = numeroMatricule;
         this.nom = nom;
@@ -45,6 +46,7 @@ public class StudentDTO {
         this.paiements = paiements;
         this.prixScholarite = prixScholarite;
         this.resteApayer = resteApayer;
+        this.anneeScolaire = anneeScolaire;
     }
 
     public StudentDTO() {
@@ -176,6 +178,14 @@ public class StudentDTO {
 
     public void setResteApayer(double resteApayer) {
         this.resteApayer = resteApayer;
+    }
+
+    public String getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(String anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
     }
 
     @Override

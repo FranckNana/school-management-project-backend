@@ -26,17 +26,21 @@ public class MetricsEntity {
 
     private int year;
     private Month month;
+    private long comparedStudent;
+    private long comparedTeacher;
 
     public MetricsEntity() {}
 
     public MetricsEntity(int totalStudents, int totalTeachers, double paymentComplianceRate,
-                         int todaysClassesCount, int year, Month month) {
+                         int todaysClassesCount, int year, Month month, long comparedStudent, long comparedTeacher) {
         this.totalStudents = totalStudents;
         this.totalTeachers = totalTeachers;
         this.paymentComplianceRate = paymentComplianceRate;
         this.todaysClassesCount = todaysClassesCount;
         this.year = year;
         this.month = month;
+        this.comparedStudent = comparedStudent;
+        this.comparedTeacher = comparedTeacher;
     }
 
 
@@ -94,5 +98,21 @@ public class MetricsEntity {
 
     public void setMonth(Month month) {
         this.month = month;
+    }
+
+    public long getComparedStudent() {
+        return comparedStudent;
+    }
+
+    public void setComparedStudent(long comparedStudent) {
+        this.comparedStudent = comparedStudent;
+    }
+
+    public long getComparedTeacher() {
+        return comparedTeacher;
+    }
+
+    public void setComparedTeacher(long comparedTeacher) {
+        this.comparedTeacher = comparedTeacher;
     }
 }

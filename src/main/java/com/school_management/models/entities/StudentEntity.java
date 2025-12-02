@@ -31,17 +31,15 @@ public class StudentEntity extends AbstractUser implements Serializable {
     @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PaiementEntity> paiements = new ArrayList<>();
 
-    @Column(nullable = true)
     private double prixScholarite;
-
-    @Column(nullable = true)
     private double resteApayer;
+    private String anneeScolaire;
 
 
     public StudentEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse,
                          Long id, String numeroMatricule, String classe, String nomParent, String telephoneParent,
                          List<NoteEntity> notes, List<PresenceEntity> presences, List<PaiementEntity> paiements,
-                         double prixScholarite, double resteApayer) {
+                         double prixScholarite, double resteApayer, String anneeScolaire) {
         super(nom, prenom, dateNaissance, telephone, email, adresse);
         this.id = id;
         this.numeroMatricule = numeroMatricule;
@@ -53,6 +51,7 @@ public class StudentEntity extends AbstractUser implements Serializable {
         this.paiements = paiements;
         this.prixScholarite = prixScholarite;
         this.resteApayer = resteApayer;
+        this.anneeScolaire = anneeScolaire;
     }
 
     public StudentEntity(String nom, String prenom, LocalDate dateNaissance, String telephone, String email, String adresse) {
@@ -141,5 +140,13 @@ public class StudentEntity extends AbstractUser implements Serializable {
 
     public void setResteApayer(double resteApayer) {
         this.resteApayer = resteApayer;
+    }
+
+    public String getAnneeScolaire() {
+        return anneeScolaire;
+    }
+
+    public void setAnneeScolaire(String anneeScolaire) {
+        this.anneeScolaire = anneeScolaire;
     }
 }

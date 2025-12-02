@@ -2,20 +2,13 @@ package com.school_management.controllers;
 
 import com.school_management.exceptions.ControllerExceptionHandler;
 import com.school_management.models.dto.BulletinDTO;
-import com.school_management.models.dto.PaiementDTO;
-import com.school_management.models.dto.StudentDTO;
 import com.school_management.services.IBulletinService;
-import com.school_management.services.IPaiementService;
+import com.school_management.services.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,6 +16,9 @@ public class BulletinControllers extends ControllerExceptionHandler {
 
     @Autowired
     private IBulletinService bulletinService;
+
+    @Autowired
+    private ITokenService tokenService;
 
     @GetMapping("/bulletins")
     public ResponseEntity<List<BulletinDTO>> getAll() {
@@ -67,6 +63,25 @@ public class BulletinControllers extends ControllerExceptionHandler {
                 .contentType(MediaType.APPLICATION_PDF)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=bulletin-" + id + ".pdf")
                 .body(pdfBytes);
+    }
+
+
+    @GetMapping("/bulletins/verify/{id}")
+    public ResponseEntity<byte[]> verify(@PathVariable Long id, @RequestParam(name = "t") String token) {
+
+        if (!tokenService.isValid(id, token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        byte[] pdfBytes = this.bulletinService.generatePDF(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
+        // 'inline' permet l'affichage dans le navigateur, 'attachment' force le téléchargement
+        headers.setContentDisposition(ContentDisposition.inline().filename("bulletin_" + id + ".pdf").build());
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
 }

@@ -35,6 +35,7 @@ public class StudentMapper {
 
         dto.setPrixScholarite(entity.getPrixScholarite());
         dto.setResteApayer(entity.getResteApayer());
+        dto.setAnneeScolaire(entity.getAnneeScolaire());
 
         return dto;
     }
@@ -68,6 +69,7 @@ public class StudentMapper {
 
         entity.setPrixScholarite(dto.getPrixScholarite());
         entity.setResteApayer(dto.getResteApayer());
+        entity.setAnneeScolaire(dto.getAnneeScolaire());
         return entity;
     }
 }

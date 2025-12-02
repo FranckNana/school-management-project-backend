@@ -14,7 +14,9 @@ public class MetricsMapper {
                 entity.getPaymentComplianceRate(),
                 entity.getTodaysClassesCount(),
                 entity.getYear(),
-                entity.getMonth()
+                entity.getMonth(),
+                entity.getComparedStudent(),
+                entity.getComparedTeacher()
         );
     }
 
@@ -27,7 +29,9 @@ public class MetricsMapper {
                 dto.getPaymentComplianceRate(),
                 dto.getTodaysClassesCount(),
                 dto.getYear(),
-                dto.getMonth()
+                dto.getMonth(),
+                dto.getComparedStudent(),
+                dto.getComparedTeacher()
         );
     }
 }
